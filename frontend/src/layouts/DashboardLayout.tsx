@@ -22,6 +22,7 @@ export default function DashboardLayout({ children }: Props) {
             ["Courses", "/university/courses"],
             ["Subjects", "/university/subjects"],
             ["Reports", "/university/reports"],
+            ["Students", "/university/students"],
         ],
         college: [
             ["Dashboard", "/college/dashboard"],

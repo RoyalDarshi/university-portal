@@ -27,6 +27,7 @@ func RegisterRoutes(r *gin.RouterGroup) {
 		u.GET("/subjects", universityHandlers.GetSubjects)
 		u.POST("/subjects", universityHandlers.CreateSubject)
 		u.GET("/reports", universityHandlers.Reports)
+		u.GET("/students", universityHandlers.GetAllStudents)
 	}
 
 	// ⏣ COLLEGE PANEL

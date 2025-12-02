@@ -8,6 +8,7 @@ import Branches from "./pages/University/Branches";
 import Courses from "./pages/University/Courses";
 import UniversitySubjects from "./pages/University/Subjects";
 import UniversityReports from "./pages/University/Reports";
+import Students from "./pages/University/Students";
 import CollegeDashboard from "./pages/College/Dashboard";
 import CollegeStudents from "./pages/College/Students";
 import CollegeSubjects from "./pages/College/Subjects";
@@ -100,6 +101,16 @@ export default function App() {
           <ProtectedRoute allowed={["university"]}>
             <DashboardLayout>
               <UniversityReports />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/university/students"
+        element={
+          <ProtectedRoute allowed={["university"]}>
+            <DashboardLayout>
+              <Students />
             </DashboardLayout>
           </ProtectedRoute>
         }
