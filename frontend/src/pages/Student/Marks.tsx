@@ -22,10 +22,10 @@ export default function StudentMarks() {
 
     const columns = useMemo<ColumnDef<Marks, any>[]>(
         () => [
-            { accessorKey: "subject", header: "Subject" },
-            { accessorKey: "exam_type", header: "Exam Type" },
-            { accessorKey: "marks", header: "Marks" },
-            { accessorKey: "max_marks", header: "Max Marks" },
+            { accessorKey: "Subject", header: "Subject" },
+            { accessorKey: "ExamType", header: "Exam Type" },
+            { accessorKey: "Marks", header: "Marks" },
+            { accessorKey: "MaxMarks", header: "Max Marks" },
         ],
         []
     );

@@ -4,13 +4,13 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "../../components/DataTable";
 
 interface TopStudent {
-    name: string;
-    total_marks: number;
+    Name: string;
+    TotalMarks: number;
 }
 
 interface BranchAvg {
-    branch: string;
-    avg_marks: number;
+    Branch: string;
+    AvgMarks: number;
 }
 
 interface ReportsResponse {
@@ -30,16 +30,16 @@ export default function UniversityReports() {
 
     const topCols = useMemo<ColumnDef<TopStudent, any>[]>(
         () => [
-            { accessorKey: "name", header: "Student" },
-            { accessorKey: "total_marks", header: "Total Marks" },
+            { accessorKey: "Name", header: "Student" },
+            { accessorKey: "TotalMarks", header: "Total Marks" },
         ],
         []
     );
 
     const branchCols = useMemo<ColumnDef<BranchAvg, any>[]>(
         () => [
-            { accessorKey: "branch", header: "Branch" },
-            { accessorKey: "avg_marks", header: "Average Marks" },
+            { accessorKey: "Branch", header: "Branch" },
+            { accessorKey: "AvgMarks", header: "Average Marks" },
         ],
         []
     );

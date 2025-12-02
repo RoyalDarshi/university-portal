@@ -3,14 +3,16 @@ package main
 import (
 	"time"
 
-	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/gin"
-
+	"university-backend/internal/config"
 	"university-backend/internal/db"
 	"university-backend/internal/routes"
+
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
+	config.LoadEnv()
 	db.Connect()
 
 	r := gin.Default()
@@ -26,5 +28,5 @@ func main() {
 
 	routes.RegisterRoutes(r.Group("/"))
 
-	r.Run(":8080") // backend port
+	r.Run(":8080")
 }

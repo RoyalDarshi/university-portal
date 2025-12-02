@@ -57,9 +57,9 @@ export default function Branches() {
 
     const columns = useMemo<ColumnDef<Branch, any>[]>(
         () => [
-            { accessorKey: "id", header: "ID" },
-            { accessorKey: "name", header: "Name" },
-            { accessorKey: "college_id", header: "College ID" },
+            { accessorKey: "ID", header: "ID" },
+            { accessorKey: "Name", header: "Name" },
+            { accessorKey: "CollegeID", header: "College ID" },
         ],
         []
     );

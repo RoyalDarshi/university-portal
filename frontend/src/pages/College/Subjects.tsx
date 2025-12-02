@@ -37,13 +37,13 @@ export default function CollegeSubjects() {
 
     const columns = useMemo<ColumnDef<Subject, any>[]>(
         () => [
-            { accessorKey: "id", header: "ID" },
-            { accessorKey: "name", header: "Name" },
+            { accessorKey: "ID", header: "ID" },
+            { accessorKey: "Name", header: "Name" },
             {
                 header: "Course ID",
                 cell: ({ row }) => row.original.courseID ?? row.original.course_id ?? "-",
             },
-            { accessorKey: "semester", header: "Semester" },
+            { accessorKey: "Semester", header: "Semester" },
             {
                 header: "Max Marks",
                 cell: ({ row }) => row.original.maxMarks ?? row.original.max_marks ?? "-",

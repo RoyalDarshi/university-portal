@@ -63,12 +63,12 @@ export default function Colleges() {
 
     const columns = useMemo<ColumnDef<College, any>[]>(
         () => [
-            { accessorKey: "id", header: "ID" },
-            { accessorKey: "code", header: "Code" },
-            { accessorKey: "name", header: "Name" },
-            { accessorKey: "email", header: "Email" },
-            { accessorKey: "phone", header: "Phone" },
-            { accessorKey: "address", header: "Address" },
+            { accessorKey: "ID", header: "ID" },
+            { accessorKey: "Code", header: "Code" },
+            { accessorKey: "Name", header: "Name" },
+            { accessorKey: "Email", header: "Email" },
+            { accessorKey: "Phone", header: "Phone" },
+            { accessorKey: "Address", header: "Address" },
         ],
         []
     );

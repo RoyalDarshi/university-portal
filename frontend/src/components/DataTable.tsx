@@ -79,11 +79,16 @@ export function DataTable<T extends object>({
                         {table.getRowModel().rows.length ? (
                             table.getRowModel().rows.map((row) => (
                                 <tr key={row.id} className="border-b last:border-0 hover:bg-gray-50">
-                                    {row.getVisibleCells().map((cell) => (
-                                        <td key={cell.id} className="px-3 py-2 align-top">
-                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                        </td>
-                                    ))}
+                                    {row.getVisibleCells().map((cell) => {
+                                        // Add this console log to check browser console
+                                        console.log("Cell Value:", row.getAllCells()[0].getValue());
+
+                                        return (
+                                            <td key={cell.id} className="px-3 py-2 align-top">
+                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                            </td>
+                                        )
+                                    })}
                                 </tr>
                             ))
                         ) : (

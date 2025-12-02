@@ -21,9 +21,9 @@ export default function StudentSubjects() {
 
     const columns = useMemo<ColumnDef<Subject, any>[]>(
         () => [
-            { accessorKey: "id", header: "ID" },
-            { accessorKey: "name", header: "Subject" },
-            { accessorKey: "max_marks", header: "Max Marks" },
+            { accessorKey: "ID", header: "ID" },
+            { accessorKey: "Name", header: "Subject" },
+            { accessorKey: "MaxMarks", header: "Max Marks" },
         ],
         []
     );

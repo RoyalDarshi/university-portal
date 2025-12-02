@@ -35,9 +35,9 @@ export default function CollegeReports() {
                 cell: ({ row }) =>
                     row.original.studentid ?? row.original.student_id ?? "-",
             },
-            { accessorKey: "name", header: "Student Name" },
-            { accessorKey: "subject", header: "Subject" },
-            { accessorKey: "marks", header: "Marks" },
+            { accessorKey: "Name", header: "Student Name" },
+            { accessorKey: "Subject", header: "Subject" },
+            { accessorKey: "Marks", header: "Marks" },
             {
                 header: "Exam Type",
                 cell: ({ row }) => row.original.examtype ?? row.original.exam_type ?? "-",

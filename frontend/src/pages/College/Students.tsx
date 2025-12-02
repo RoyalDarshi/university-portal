@@ -79,9 +79,9 @@ export default function Students() {
 
     const columns = useMemo<ColumnDef<Student, any>[]>(
         () => [
-            { accessorKey: "id", header: "ID" },
-            { accessorKey: "enrollment", header: "Enrollment" },
-            { accessorKey: "name", header: "Name" },
+            { accessorKey: "ID", header: "ID" },
+            { accessorKey: "Enrollment", header: "Enrollment" },
+            { accessorKey: "Name", header: "Name" },
             {
                 header: "Branch ID",
                 cell: ({ row }) => row.original.branchID ?? row.original.branch_id ?? "-",
@@ -90,7 +90,7 @@ export default function Students() {
                 header: "Course ID",
                 cell: ({ row }) => row.original.courseID ?? row.original.course_id ?? "-",
             },
-            { accessorKey: "semester", header: "Semester" },
+            { accessorKey: "Semester", header: "Semester" },
         ],
         []
     );
