@@ -1,0 +1,17 @@
+# Node modules
+frontend/node_modules/
+
+# Build output
+frontend/dist/
+frontend/build/
+
+# Environment
+**/.env
+
+# Go build output
+backend/bin/
+backend/tmp/
+
+# OS files
+.DS_Store
+Thumbs.db
