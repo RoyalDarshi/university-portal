@@ -1,0 +1,101 @@
+{
+  "colleges": [
+    {
+      "ID": 1,
+      "Name": "ABC Engineering College",
+      "Code": "ABC01",
+      "Email": "abc@college.com",
+      "Phone": "9999911111",
+      "Address": "Delhi",
+      "Branches": null
+    },
+    {
+      "ID": 2,
+      "Name": "XYZ Institute of Technology",
+      "Code": "XYZ01",
+      "Email": "xyz@college.com",
+      "Phone": "9999922222",
+      "Address": "Mumbai",
+      "Branches": null
+    }
+  ],
+  "students": [
+    {
+      "ID": 1,
+      "Name": "Arjun",
+      "Enrollment": "CSE21A001",
+      "Email": "arjun@student.com",
+      "Phone": "9876543210",
+      "Semester": 3,
+      "CollegeID": 1,
+      "BranchID": 1,
+      "CourseID": 1
+    },
+    {
+      "ID": 2,
+      "Name": "Neha",
+      "Enrollment": "CSE21A002",
+      "Email": "neha@student.com",
+      "Phone": "8888877777",
+      "Semester": 3,
+      "CollegeID": 1,
+      "BranchID": 1,
+      "CourseID": 1
+    },
+    {
+      "ID": 3,
+      "Name": "Rahul",
+      "Enrollment": "MECH22B001",
+      "Email": "rahul@student.com",
+      "Phone": "9998886666",
+      "Semester": 3,
+      "CollegeID": 2,
+      "BranchID": 4,
+      "CourseID": 5
+    }
+  ],
+  "users": [
+    {
+      "ID": 1,
+      "Email": "uni@admin.com",
+      "Password": "$2a$10$8qJO3Uhca56xOuU.pY7u/.oWrNKmGOtOQfhaDyaCp.WRs1N0jTF5u",
+      "Role": "university",
+      "ReferenceID": 1
+    },
+    {
+      "ID": 2,
+      "Email": "college1@demo.com",
+      "Password": "$2a$10$x0.iZn.f0qjPidiUUj3a/.i7VCdRZyfMK3hjXO.L8qVnXhZFecRQu",
+      "Role": "college",
+      "ReferenceID": 1
+    },
+    {
+      "ID": 3,
+      "Email": "college2@demo.com",
+      "Password": "$2a$10$lQaxtdSFg8i3RWcvxitlAOyYYpqYuvn3pBuWceIFKsYuKpORi6dSa",
+      "Role": "college",
+      "ReferenceID": 2
+    },
+    {
+      "ID": 4,
+      "Email": "arjun@student.com",
+      "Password": "$2a$10$/WUGMAejAoCLEjCLIPEA9OX0cW9uzF7KOI42ib.SY8pU0sgyPLxv.",
+      "Role": "student",
+      "ReferenceID": 1
+    },
+    {
+      "ID": 5,
+      "Email": "neha@student.com",
+      "Password": "$2a$10$aenw7CcUrNrXYC9yKx.ktuLIYnIiO2xQ34av0H3gzhT7CacjQvtme",
+      "Role": "student",
+      "ReferenceID": 2
+    },
+    {
+      "ID": 6,
+      "Email": "rahul@student.com",
+      "Password": "$2a$10$kpIfaeUUpUe6emC.vGOKE.jCBCte/6CgZLOmKPDDhwxqpdf0oDbla",
+      "Role": "student",
+      "ReferenceID": 3
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 package college
 
 import (
+	"fmt"
 	"net/http"
 	"university-backend/internal/db"
 	"university-backend/internal/models"
@@ -10,6 +11,7 @@ import (
 
 func Dashboard(c *gin.Context) {
 	collegeID := c.GetUint("referenceID")
+	fmt.Printf("DEBUG: Dashboard CollegeID=%v\n", collegeID)
 
 	var studentCount int64
 	var branchCount int64

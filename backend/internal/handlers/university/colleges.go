@@ -9,7 +9,7 @@ import (
 )
 
 func GetColleges(c *gin.Context) {
-	var colleges []models.College
+	colleges := []models.College{}
 	db.DB.Find(&colleges)
 	c.JSON(http.StatusOK, colleges)
 }

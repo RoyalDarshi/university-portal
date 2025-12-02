@@ -1,7 +1,9 @@
 package student
 
 import (
+	"fmt"
 	"net/http"
+
 	"university-backend/internal/db"
 	"university-backend/internal/models"
 
@@ -16,7 +18,13 @@ func Dashboard(c *gin.Context) {
 
 	// Count subjects matching student's course & semester
 	var student models.Student
-	db.DB.First(&student, studentID)
+	if result := db.DB.First(&student, studentID); result.Error != nil {
+		fmt.Printf("DEBUG: Student Dashboard - StudentID=%d NOT FOUND\n", studentID)
+		c.JSON(http.StatusNotFound, gin.H{"error": "Student not found"})
+		return
+	}
+
+	fmt.Printf("DEBUG: Student Dashboard - StudentID=%d CourseID=%d Semester=%d\n", studentID, student.CourseID, student.Semester)
 
 	db.DB.Model(&models.Subject{}).
 		Where("course_id = ? AND semester = ?", student.CourseID, student.Semester).

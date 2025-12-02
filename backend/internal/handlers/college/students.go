@@ -1,6 +1,7 @@
 package college
 
 import (
+	"fmt"
 	"net/http"
 	"university-backend/internal/db"
 	"university-backend/internal/models"
@@ -13,6 +14,8 @@ func GetStudents(c *gin.Context) {
 	branch := c.Query("branch")
 	semester := c.Query("semester")
 
+	fmt.Printf("DEBUG: GetStudents CollegeID=%d Branch='%s' Semester='%s'\n", collegeID, branch, semester)
+
 	query := db.DB.Where("college_id = ?", collegeID)
 
 	if branch != "" {
@@ -22,8 +25,12 @@ func GetStudents(c *gin.Context) {
 		query = query.Where("semester = ?", semester)
 	}
 
-	var students []models.Student
+	// Initialize as empty slice to ensure [] instead of null in JSON
+	students := []models.Student{}
 	query.Find(&students)
+
+	// Debug log
+	fmt.Printf("DEBUG: CollegeID=%v, Branch=%v, Semester=%v, Found=%d students\n", collegeID, branch, semester, len(students))
 
 	c.JSON(http.StatusOK, students)
 }

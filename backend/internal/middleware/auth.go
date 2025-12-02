@@ -36,9 +36,13 @@ func Auth() gin.HandlerFunc {
 
 		claims := token.Claims.(jwt.MapClaims)
 
-		c.Set("userID", claims["userID"])
+		// Convert float64 to uint for proper retrieval with GetUint()
+		userID := uint(claims["userID"].(float64))
+		referenceID := uint(claims["referenceID"].(float64))
+
+		c.Set("userID", userID)
 		c.Set("role", claims["role"])
-		c.Set("referenceID", claims["referenceID"])
+		c.Set("referenceID", referenceID)
 		c.Next()
 	}
 }

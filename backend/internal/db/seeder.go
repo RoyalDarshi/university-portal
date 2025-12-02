@@ -16,30 +16,23 @@ func hashPassword(p string) string {
 }
 
 func Seed(db *gorm.DB) {
-	var count int64
-
-	// If already seeded, stop
-	db.Model(&models.University{}).Count(&count)
-	if count > 0 {
-		fmt.Println("🌱 Seeder skipped — database already contains data")
-		return
-	}
-
-	fmt.Println("🌱 Running Initial Seeder...")
+	fmt.Println("🌱 Running Seeder...")
 
 	// 1. University
 	university := models.University{Name: "Global Technical University"}
-	db.Create(&university)
+	if err := db.FirstOrCreate(&university, models.University{Name: university.Name}).Error; err != nil {
+		log.Printf("⚠ Could not seed university: %v", err)
+	}
 
 	// 2. Colleges
 	colleges := []models.College{
 		{Name: "ABC Engineering College", Code: "ABC01", Email: "abc@college.com", Phone: "9999911111", Address: "Delhi"},
 		{Name: "XYZ Institute of Technology", Code: "XYZ01", Email: "xyz@college.com", Phone: "9999922222", Address: "Mumbai"},
 	}
-	for i := range colleges {
-		db.Create(&colleges[i])
+	for _, c := range colleges {
+		db.Where(models.College{Email: c.Email}).FirstOrCreate(&c)
 	}
-	log.Println("✔ Colleges added")
+	log.Println("✔ Colleges ensured")
 
 	// 3. Branches
 	branches := []models.Branch{
@@ -48,10 +41,10 @@ func Seed(db *gorm.DB) {
 		{Name: "Computer Science", CollegeID: 2},
 		{Name: "Mechanical Engineering", CollegeID: 2},
 	}
-	for i := range branches {
-		db.Create(&branches[i])
+	for _, b := range branches {
+		db.Where(models.Branch{Name: b.Name, CollegeID: b.CollegeID}).FirstOrCreate(&b)
 	}
-	log.Println("✔ Branches added")
+	log.Println("✔ Branches ensured")
 
 	// 4. Courses
 	courses := []models.Course{
@@ -61,10 +54,10 @@ func Seed(db *gorm.DB) {
 		{Name: "B.Tech CSE", BranchID: 3},
 		{Name: "B.Tech Mechanical", BranchID: 4},
 	}
-	for i := range courses {
-		db.Create(&courses[i])
+	for _, c := range courses {
+		db.Where(models.Course{Name: c.Name, BranchID: c.BranchID}).FirstOrCreate(&c)
 	}
-	log.Println("✔ Courses added")
+	log.Println("✔ Courses ensured")
 
 	// 5. Subjects
 	subjects := []models.Subject{
@@ -77,10 +70,10 @@ func Seed(db *gorm.DB) {
 		{Name: "Machine Learning", CourseID: 4, Semester: 5, MaxMarks: 100},
 		{Name: "Thermodynamics", CourseID: 5, Semester: 3, MaxMarks: 100},
 	}
-	for i := range subjects {
-		db.Create(&subjects[i])
+	for _, s := range subjects {
+		db.Where(models.Subject{Name: s.Name, CourseID: s.CourseID}).FirstOrCreate(&s)
 	}
-	log.Println("✔ Subjects added")
+	log.Println("✔ Subjects ensured")
 
 	// 6. Users (login credentials)
 	users := []models.User{
@@ -91,10 +84,15 @@ func Seed(db *gorm.DB) {
 		{Email: "neha@student.com", Password: hashPassword("123"), Role: "student", ReferenceID: 2},
 		{Email: "rahul@student.com", Password: hashPassword("123"), Role: "student", ReferenceID: 3},
 	}
-	for i := range users {
-		db.Create(&users[i])
+	for _, u := range users {
+		// Check by email
+		var count int64
+		db.Model(&models.User{}).Where("email = ?", u.Email).Count(&count)
+		if count == 0 {
+			db.Create(&u)
+		}
 	}
-	log.Println("✔ Users added (plain password, hash later)")
+	log.Println("✔ Users ensured")
 
 	// 7. Students table
 	students := []models.Student{
@@ -102,10 +100,10 @@ func Seed(db *gorm.DB) {
 		{Name: "Neha", Email: "neha@student.com", Enrollment: "CSE21A002", CourseID: 1, BranchID: 1, CollegeID: 1, Semester: 3, Phone: "8888877777"},
 		{Name: "Rahul", Email: "rahul@student.com", Enrollment: "MECH22B001", CourseID: 5, BranchID: 4, CollegeID: 2, Semester: 3, Phone: "9998886666"},
 	}
-	for i := range students {
-		db.Create(&students[i])
+	for _, s := range students {
+		db.Where(models.Student{Enrollment: s.Enrollment}).FirstOrCreate(&s)
 	}
-	log.Println("✔ Students added")
+	log.Println("✔ Students ensured")
 
 	// 8. Internal Marks
 	internalMarks := []models.InternalMarks{
@@ -122,10 +120,10 @@ func Seed(db *gorm.DB) {
 		{StudentID: 3, SubjectID: 7, Marks: 80, ExamType: "Mid"},
 		{StudentID: 3, SubjectID: 8, Marks: 74, ExamType: "Final"},
 	}
-	for i := range internalMarks {
-		db.Create(&internalMarks[i])
+	for _, m := range internalMarks {
+		db.Where(models.InternalMarks{StudentID: m.StudentID, SubjectID: m.SubjectID, ExamType: m.ExamType}).FirstOrCreate(&m)
 	}
-	log.Println("✔ Internal Marks added")
+	log.Println("✔ Internal Marks ensured")
 
 	fmt.Println("🌱 Seeder completed successfully")
 }
