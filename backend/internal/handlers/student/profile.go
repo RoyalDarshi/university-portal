@@ -19,5 +19,27 @@ func Profile(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, student)
+	// Fetch related College, Branch, and Course
+	var college models.College
+	var branch models.Branch
+	var course models.Course
+
+	db.DB.First(&college, student.CollegeID)
+	db.DB.First(&branch, student.BranchID)
+	db.DB.First(&course, student.CourseID)
+
+	// Create response with names instead of IDs
+	response := gin.H{
+		"id":         student.ID,
+		"name":       student.Name,
+		"enrollment": student.Enrollment,
+		"email":      student.Email,
+		"phone":      student.Phone,
+		"semester":   student.Semester,
+		"college":    college.Name,
+		"branch":     branch.Name,
+		"course":     course.Name,
+	}
+
+	c.JSON(http.StatusOK, response)
 }

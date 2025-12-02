@@ -4,13 +4,11 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "../../components/DataTable";
 
 interface MarksReportRow {
-    studentid?: number;
-    student_id?: number;
-    name: string;
-    subject: string;
-    marks: number;
-    examtype?: string;
-    exam_type?: string;
+    StudentID?: number;
+    Name: string;
+    Subject: string;
+    Marks: number;
+    ExamType?: string;
 }
 
 export default function CollegeReports() {
@@ -33,14 +31,14 @@ export default function CollegeReports() {
             {
                 header: "Student ID",
                 cell: ({ row }) =>
-                    row.original.studentid ?? row.original.student_id ?? "-",
+                    row.original.StudentID ?? row.original.StudentID ?? "-",
             },
             { accessorKey: "Name", header: "Student Name" },
             { accessorKey: "Subject", header: "Subject" },
             { accessorKey: "Marks", header: "Marks" },
             {
                 header: "Exam Type",
-                cell: ({ row }) => row.original.examtype ?? row.original.exam_type ?? "-",
+                cell: ({ row }) => row.original.ExamType ?? row.original.ExamType ?? "-",
             },
         ],
         []

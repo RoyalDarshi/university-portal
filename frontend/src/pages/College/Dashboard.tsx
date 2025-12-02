@@ -7,6 +7,7 @@ import {
     YAxis,
     Tooltip,
     ResponsiveContainer,
+    CartesianGrid,
 } from "recharts";
 
 interface DashboardStats {
@@ -16,8 +17,8 @@ interface DashboardStats {
 }
 
 interface MarksRow {
-    subject: string;
-    marks: number;
+    Subject: string;
+    Marks: number;
 }
 
 export default function CollegeDashboard() {
@@ -34,15 +35,15 @@ export default function CollegeDashboard() {
                 // group by subject -> average marks
                 const map: Record<string, { total: number; count: number }> = {};
                 reportRes.data.forEach((r) => {
-                    const subject = r.subject;
-                    const marks = Number(r.marks) || 0;
+                    const subject = r.Subject;
+                    const marks = Number(r.Marks) || 0;
                     if (!map[subject]) map[subject] = { total: 0, count: 0 };
                     map[subject].total += marks;
                     map[subject].count += 1;
                 });
                 const arr: MarksRow[] = Object.entries(map).map(([subject, { total, count }]) => ({
-                    subject,
-                    marks: count ? total / count : 0,
+                    Subject: subject,
+                    Marks: count ? total / count : 0,
                 }));
                 setChartData(arr.slice(0, 7)); // top 7 subjects
             } catch (err) {
@@ -65,17 +66,22 @@ export default function CollegeDashboard() {
             )}
 
             <div className="bg-white rounded-lg shadow p-4">
-                <h3 className="font-semibold mb-2">Average Marks by Subject</h3>
-                <div className="h-64">
-                    <ResponsiveContainer width="100%" height="100%">
-                        <BarChart data={chartData}>
-                            <XAxis dataKey="subject" />
+                <h3 className="font-semibold mb-2">Average Marks by Subject ({chartData.length} subjects)</h3>
+                {chartData.length > 0 ? (
+                    <ResponsiveContainer width="100%" height={300}>
+                        <BarChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="Subject" />
                             <YAxis />
                             <Tooltip />
-                            <Bar dataKey="marks" />
+                            <Bar dataKey="Marks" fill="#3b82f6" stroke="#1e40af" strokeWidth={1} />
                         </BarChart>
                     </ResponsiveContainer>
-                </div>
+                ) : (
+                    <div style={{ height: 300 }} className="flex items-center justify-center text-gray-500">
+                        No data available
+                    </div>
+                )}
             </div>
         </div>
     );

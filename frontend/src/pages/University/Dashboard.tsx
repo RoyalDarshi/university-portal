@@ -11,6 +11,7 @@ import {
     Pie,
     Cell,
     Legend,
+    CartesianGrid,
 } from "recharts";
 
 interface UniStats {
@@ -21,13 +22,13 @@ interface UniStats {
 }
 
 interface TopStudent {
-    name: string;
-    total_marks: number;
+    Name: string;
+    TotalMarks: number;
 }
 
 interface BranchAvg {
-    branch: string;
-    avg_marks: number;
+    Branch: string;
+    AvgMarks: number;
 }
 
 interface ReportsResponse {
@@ -49,7 +50,19 @@ export default function UniversityDashboard() {
                     axiosClient.get<ReportsResponse>("/university/reports"),
                 ]);
                 setStats(statsRes.data);
-                setReport(reportRes.data);
+
+                const processedReport = {
+                    top_students: reportRes.data.top_students.map((s: any) => ({
+                        Name: s.Name,
+                        TotalMarks: Number(s.TotalMarks) || 0
+                    })),
+                    branch_avg: reportRes.data.branch_avg.map((b: any) => ({
+                        Branch: b.Branch,
+                        AvgMarks: Number(b.AvgMarks) || 0
+                    }))
+                };
+
+                setReport(processedReport);
             } catch (err) {
                 console.error(err);
             }
@@ -78,35 +91,40 @@ export default function UniversityDashboard() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {/* Top students bar chart */}
                     <div className="bg-white rounded-lg shadow p-4">
-                        <h3 className="font-semibold mb-2">Top Performing Students</h3>
-                        <div className="h-64">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <BarChart data={report.top_students}>
-                                    <XAxis dataKey="name" />
+                        <h3 className="font-semibold mb-2">Top Performing Students ({report.top_students.length} records)</h3>
+                        {report.top_students.length > 0 ? (
+                            <ResponsiveContainer width="100%" height={300}>
+                                <BarChart data={report.top_students} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="Name" />
                                     <YAxis />
                                     <Tooltip />
-                                    <Bar dataKey="total_marks" />
+                                    <Bar dataKey="TotalMarks" fill="#3b82f6" stroke="#1e40af" strokeWidth={1} />
                                 </BarChart>
                             </ResponsiveContainer>
-                        </div>
+                        ) : (
+                            <div style={{ height: 300 }} className="flex items-center justify-center text-gray-500">
+                                No data available
+                            </div>
+                        )}
                     </div>
 
                     {/* Branch average pie chart */}
                     <div className="bg-white rounded-lg shadow p-4">
-                        <h3 className="font-semibold mb-2">Average Marks by Branch</h3>
-                        <div className="h-64">
-                            <ResponsiveContainer width="100%" height="100%">
+                        <h3 className="font-semibold mb-2">Average Marks by Branch ({report.branch_avg.length} records)</h3>
+                        {report.branch_avg.length > 0 ? (
+                            <ResponsiveContainer width="100%" height={300}>
                                 <PieChart>
                                     <Pie
                                         data={report.branch_avg as any[]}
-                                        dataKey="avg_marks"
-                                        nameKey="branch"
+                                        dataKey="AvgMarks"
+                                        nameKey="Branch"
                                         outerRadius={90}
                                         label
                                     >
                                         {report.branch_avg.map((entry, index) => (
                                             <Cell
-                                                key={entry.branch}
+                                                key={entry.Branch}
                                                 fill={COLORS[index % COLORS.length]}
                                             />
                                         ))}
@@ -115,7 +133,11 @@ export default function UniversityDashboard() {
                                     <Legend />
                                 </PieChart>
                             </ResponsiveContainer>
-                        </div>
+                        ) : (
+                            <div style={{ height: 300 }} className="flex items-center justify-center text-gray-500">
+                                No data available
+                            </div>
+                        )}
                     </div>
                 </div>
             )}

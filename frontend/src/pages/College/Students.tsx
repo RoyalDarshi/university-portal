@@ -5,22 +5,20 @@ import { DataTable } from "../../components/DataTable";
 import toast from "react-hot-toast";
 
 interface Student {
-    id: number;
-    name: string;
-    enrollment: string;
-    branchID?: number;
-    branch_id?: number;
-    courseID?: number;
-    course_id?: number;
-    semester: number;
+    ID: number;
+    Name: string;
+    Enrollment: string;
+    BranchID?: number;
+    CourseID?: number;
+    Semester: number;
 }
 
 interface NewStudentForm {
-    name: string;
-    enrollment: string;
-    branchID: string;
-    courseID: string;
-    semester: string;
+    Name: string;
+    Enrollment: string;
+    BranchID: string;
+    CourseID: string;
+    Semester: string;
 }
 
 export default function Students() {
@@ -28,11 +26,11 @@ export default function Students() {
     const [branchFilter, setBranchFilter] = useState("");
     const [semesterFilter, setSemesterFilter] = useState("");
     const [form, setForm] = useState<NewStudentForm>({
-        name: "",
-        enrollment: "",
-        branchID: "",
-        courseID: "",
-        semester: "",
+        Name: "",
+        Enrollment: "",
+        BranchID: "",
+        CourseID: "",
+        Semester: "",
     });
 
     const fetchStudents = async () => {
@@ -51,20 +49,20 @@ export default function Students() {
     };
 
     const addStudent = async () => {
-        if (!form.name || !form.enrollment) {
+        if (!form.Name || !form.Enrollment) {
             toast.error("Name and Enrollment are required");
             return;
         }
         try {
             await axiosClient.post("/college/students", {
-                name: form.name,
-                enrollment: form.enrollment,
-                branchID: Number(form.branchID),
-                courseID: Number(form.courseID),
-                semester: Number(form.semester),
+                Name: form.Name,
+                Enrollment: form.Enrollment,
+                BranchID: Number(form.BranchID),
+                CourseID: Number(form.CourseID),
+                Semester: Number(form.Semester),
             });
             toast.success("Student added");
-            setForm({ name: "", enrollment: "", branchID: "", courseID: "", semester: "" });
+            setForm({ Name: "", Enrollment: "", BranchID: "", CourseID: "", Semester: "" });
             fetchStudents();
         } catch (err) {
             console.error(err);
@@ -74,7 +72,7 @@ export default function Students() {
 
     useEffect(() => {
         fetchStudents();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-h ooks/exhaustive-deps
     }, []);
 
     const columns = useMemo<ColumnDef<Student, any>[]>(
@@ -84,11 +82,11 @@ export default function Students() {
             { accessorKey: "Name", header: "Name" },
             {
                 header: "Branch ID",
-                cell: ({ row }) => row.original.branchID ?? row.original.branch_id ?? "-",
+                cell: ({ row }) => row.original.BranchID ?? row.original.BranchID ?? "-",
             },
             {
                 header: "Course ID",
-                cell: ({ row }) => row.original.courseID ?? row.original.course_id ?? "-",
+                cell: ({ row }) => row.original.CourseID ?? row.original.CourseID ?? "-",
             },
             { accessorKey: "Semester", header: "Semester" },
         ],
@@ -134,32 +132,32 @@ export default function Students() {
                     <input
                         className="border rounded px-2 py-1"
                         placeholder="Name"
-                        value={form.name}
-                        onChange={(e) => setForm({ ...form, name: e.target.value })}
+                        value={form.Name}
+                        onChange={(e) => setForm({ ...form, Name: e.target.value })}
                     />
                     <input
                         className="border rounded px-2 py-1"
                         placeholder="Enrollment"
-                        value={form.enrollment}
-                        onChange={(e) => setForm({ ...form, enrollment: e.target.value })}
+                        value={form.Enrollment}
+                        onChange={(e) => setForm({ ...form, Enrollment: e.target.value })}
                     />
                     <input
                         className="border rounded px-2 py-1"
                         placeholder="Branch ID"
-                        value={form.branchID}
-                        onChange={(e) => setForm({ ...form, branchID: e.target.value })}
+                        value={form.BranchID}
+                        onChange={(e) => setForm({ ...form, BranchID: e.target.value })}
                     />
                     <input
                         className="border rounded px-2 py-1"
                         placeholder="Course ID"
-                        value={form.courseID}
-                        onChange={(e) => setForm({ ...form, courseID: e.target.value })}
+                        value={form.CourseID}
+                        onChange={(e) => setForm({ ...form, CourseID: e.target.value })}
                     />
                     <input
                         className="border rounded px-2 py-1"
                         placeholder="Semester"
-                        value={form.semester}
-                        onChange={(e) => setForm({ ...form, semester: e.target.value })}
+                        value={form.Semester}
+                        onChange={(e) => setForm({ ...form, Semester: e.target.value })}
                     />
                     <button
                         onClick={addStudent}

@@ -7,6 +7,7 @@ import {
     YAxis,
     Tooltip,
     ResponsiveContainer,
+    CartesianGrid,
 } from "recharts";
 
 interface DashboardData {
@@ -16,8 +17,8 @@ interface DashboardData {
 }
 
 interface MarksRow {
-    subject: string;
-    marks: number;
+    Subject: string;
+    Marks: number;
 }
 
 export default function StudentDashboard() {
@@ -32,13 +33,13 @@ export default function StudentDashboard() {
             const marksRes = await axiosClient.get<any[]>("/student/marks");
             const aggregated: Record<string, number> = {};
             marksRes.data.forEach((m) => {
-                const subject = m.subject;
-                const marks = Number(m.marks) || 0;
+                const subject = m.Subject;
+                const marks = Number(m.Marks) || 0;
                 aggregated[subject] = (aggregated[subject] || 0) + marks;
             });
             const arr: MarksRow[] = Object.entries(aggregated).map(([subject, marks]) => ({
-                subject,
-                marks,
+                Subject: subject,
+                Marks: marks,
             }));
             setChartData(arr);
         };
@@ -60,17 +61,22 @@ export default function StudentDashboard() {
             )}
 
             <div className="bg-white rounded-lg shadow p-4">
-                <h3 className="font-semibold mb-2">Marks by Subject</h3>
-                <div className="h-64">
-                    <ResponsiveContainer width="100%" height="100%">
-                        <BarChart data={chartData}>
-                            <XAxis dataKey="subject" />
+                <h3 className="font-semibold mb-2">Marks by Subject ({chartData.length} subjects)</h3>
+                {chartData.length > 0 ? (
+                    <ResponsiveContainer width="100%" height={300}>
+                        <BarChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="Subject" />
                             <YAxis />
                             <Tooltip />
-                            <Bar dataKey="marks" />
+                            <Bar dataKey="Marks" fill="#3b82f6" stroke="#1e40af" strokeWidth={1} />
                         </BarChart>
                     </ResponsiveContainer>
-                </div>
+                ) : (
+                    <div style={{ height: 300 }} className="flex items-center justify-center text-gray-500">
+                        No data available
+                    </div>
+                )}
             </div>
         </div>
     );
