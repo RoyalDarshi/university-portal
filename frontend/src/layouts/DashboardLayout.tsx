@@ -23,6 +23,7 @@ export default function DashboardLayout({ children }: Props) {
             ["Subjects", "/university/subjects"],
             ["Reports", "/university/reports"],
             ["Students", "/university/students"],
+            ["Fees", "/university/fees"],
         ],
         college: [
             ["Dashboard", "/college/dashboard"],
@@ -30,12 +31,14 @@ export default function DashboardLayout({ children }: Props) {
             ["Subjects", "/college/subjects"],
             ["Marks", "/college/marks"],
             ["Reports", "/college/reports"],
+            ["Fees", "/college/fees"],
         ],
         student: [
             ["Dashboard", "/student/dashboard"],
             ["Profile", "/student/profile"],
             ["Subjects", "/student/subjects"],
             ["Marks", "/student/marks"],
+            ["Fees", "/student/fees"],
         ],
     };
 

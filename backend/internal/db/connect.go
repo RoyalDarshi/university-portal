@@ -59,6 +59,8 @@ func Connect() {
 		&models.Student{},
 		&models.User{},
 		&models.InternalMarks{},
+		&models.FeeStructure{},
+		&models.FeePayment{},
 	)
 	if err != nil {
 		log.Fatalf("❌ Auto migration failed: %v", err)

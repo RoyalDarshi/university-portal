@@ -5,13 +5,11 @@ import { DataTable } from "../../components/DataTable";
 import toast from "react-hot-toast";
 
 interface Subject {
-    id: number;
-    name: string;
-    course_id?: number;
-    courseID?: number;
-    semester: number;
-    max_marks?: number;
-    maxMarks?: number;
+    ID: number;
+    Name: string;
+    CourseID?: number;
+    Semester: number;
+    MaxMarks?: number;
 }
 
 export default function CollegeSubjects() {
@@ -41,12 +39,12 @@ export default function CollegeSubjects() {
             { accessorKey: "Name", header: "Name" },
             {
                 header: "Course ID",
-                cell: ({ row }) => row.original.courseID ?? row.original.course_id ?? "-",
+                cell: ({ row }) => row.original.CourseID ?? "-",
             },
             { accessorKey: "Semester", header: "Semester" },
             {
                 header: "Max Marks",
-                cell: ({ row }) => row.original.maxMarks ?? row.original.max_marks ?? "-",
+                cell: ({ row }) => row.original.MaxMarks ?? "-",
             },
         ],
         []

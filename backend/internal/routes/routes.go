@@ -28,6 +28,7 @@ func RegisterRoutes(r *gin.RouterGroup) {
 		u.POST("/subjects", universityHandlers.CreateSubject)
 		u.GET("/reports", universityHandlers.Reports)
 		u.GET("/students", universityHandlers.GetAllStudents)
+		u.GET("/fees/summary", universityHandlers.GetFeeSummary)
 	}
 
 	// ⏣ COLLEGE PANEL
@@ -39,6 +40,7 @@ func RegisterRoutes(r *gin.RouterGroup) {
 		c.GET("/subjects", collegeHandlers.GetSubjects)
 		c.POST("/marks", collegeHandlers.SubmitMarks)
 		c.GET("/marks/report", collegeHandlers.MarksReport)
+		c.GET("/fees/summary", collegeHandlers.CollegeFeeSummary)
 	}
 
 	// ⏣ STUDENT PANEL
@@ -48,5 +50,7 @@ func RegisterRoutes(r *gin.RouterGroup) {
 		s.GET("/profile", studentHandlers.Profile)
 		s.GET("/marks", studentHandlers.GetStudentMarks)
 		s.GET("/subjects", studentHandlers.GetSubjects)
+		s.GET("/fees/summary", studentHandlers.GetMyFeeSummary)
+		s.GET("/fees/history", studentHandlers.GetMyFeeHistory)
 	}
 }

@@ -8,17 +8,20 @@ import Branches from "./pages/University/Branches";
 import Courses from "./pages/University/Courses";
 import UniversitySubjects from "./pages/University/Subjects";
 import UniversityReports from "./pages/University/Reports";
+import UniversityFeeSummary from "./pages/University/FeeSummary";
 import Students from "./pages/University/Students";
 import CollegeDashboard from "./pages/College/Dashboard";
 import CollegeStudents from "./pages/College/Students";
 import CollegeSubjects from "./pages/College/Subjects";
 import CollegeMarks from "./pages/College/Marks";
 import CollegeReports from "./pages/College/Reports";
+import CollegeFeeSummary from "./pages/College/FeeSummary";
 import StudentDashboard from "./pages/Student/Dashboard";
 import DashboardLayout from "./layouts/DashboardLayout";
 import StudentProfile from "./pages/Student/Profile";
 import StudentSubjects from "./pages/Student/Subjects";
 import StudentMarks from "./pages/Student/Marks";
+import StudentFeeSummary from "./pages/Student/FeeSummary";
 
 
 
@@ -115,6 +118,16 @@ export default function App() {
           </ProtectedRoute>
         }
       />
+      <Route
+        path="/university/fees"
+        element={
+          <ProtectedRoute allowed={["university"]}>
+            <DashboardLayout>
+              <UniversityFeeSummary />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
 
 
       {/* College */}
@@ -173,6 +186,17 @@ export default function App() {
         }
       />
 
+      <Route
+        path="/college/fees"
+        element={
+          <ProtectedRoute allowed={["college"]}>
+            <DashboardLayout>
+              <CollegeFeeSummary />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
+      />
+
 
       /* Student */
       <Route
@@ -198,6 +222,16 @@ export default function App() {
         element={<ProtectedRoute allowed={["student"]}>
           <DashboardLayout><StudentMarks /></DashboardLayout>
         </ProtectedRoute>}
+      />
+      <Route
+        path="/student/fees"
+        element={
+          <ProtectedRoute allowed={["student"]}>
+            <DashboardLayout>
+              <StudentFeeSummary />
+            </DashboardLayout>
+          </ProtectedRoute>
+        }
       />
 
     </Routes>
